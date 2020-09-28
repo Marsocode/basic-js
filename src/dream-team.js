@@ -5,7 +5,7 @@ module.exports = function createDreamTeam(members) {
   if (!Array.isArray(members)) return false;
 
   let letters = [];
-
+  
   members.forEach(el => {
     if (typeof el === 'string') {
       letters.push(el.trim()[0].toUpperCase());
