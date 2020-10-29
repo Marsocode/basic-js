@@ -4,40 +4,23 @@ const CustomError = require("../extensions/custom-error");
 module.exports = function transform(arr) {
   // throw new CustomError('Not implemented');
   let newArr = [...arr];
-  newArr.map((item, i) => {
-    if (item === "--discard-next" ) {
-      // if not last item
-      if (i !== newArr.length - 1) {
-        delete newArr[i+1];
-        delete newArr[i];
-      } else {
-        delete newArr[i];
-      }
+  // console.log(newArr);
+  for (let i = 0; i < newArr.length; i++) {
+
+     
+  }
+  newArr.map((item, index, array) => {
+    if (item === "--discard-next") {
+      array.splice(array[index + 1], 1);
     } else if (item === "--discard-prev") {
-      // if not first item
-      if (i > 1) {
-        delete newArr[i-1];
-        delete newArr[i];
-      } else {
-        delete newArr[i];
-      }
+      array.splice(array[index - 1], 1);
     } else if (item === "--double-next") {
-      // if not last item
-      if (i !== newArr.length - 1) {
-        // change i for i+1
-        newArr.splice(i, 1, newArr[i + 1]);
-      } else {
-        delete newArr[i];
-      }
+      arr.splice(array[index + 1], 0, array[index + 1]);
     } else if (item === "--double-prev") {
-      if (i > 1) {
-        // change i for i-1
-        newArr.splice(i, 1, newArr[i - 1]);
-      } else {
-        delete newArr[i];
-      }
+      arr.splice(array[index - 1], 0, array[index - 1]);
     }
+
   });
 
-  return newArr.filter(value => value !== undefined);
+  return arr;
 };
